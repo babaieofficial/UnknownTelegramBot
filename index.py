@@ -21,7 +21,7 @@ def on_chat_message(msg):
                 bot.sendMessage(user_id,msg['text'])
                 user_id=None
             except NameError:
-                bot.sendMessage('243271749',msg['text'],reply_markup=keyboard)
+                bot.sendMessage('YOURCHATID',msg['text'],reply_markup=keyboard)
 
     elif content_type == 'photo':
         temp=f"Img{(str(time.time()).replace('.', ''))}.png"
@@ -31,13 +31,13 @@ def on_chat_message(msg):
                 bot.sendPhoto(user_id,open(temp,'rb'),caption=msg['caption'])
                 user_id = None
             except NameError:
-                bot.sendPhoto('243271749',open(temp,'rb'),caption=msg['caption'], reply_markup=keyboard)
+                bot.sendPhoto('YOURCHATID',open(temp,'rb'),caption=msg['caption'], reply_markup=keyboard)
         else:
             try:
                 bot.sendPhoto(user_id,open(temp,'rb'))
                 user_id = None
             except NameError:
-                bot.sendPhoto('243271749',open(temp,'rb'), reply_markup=keyboard)
+                bot.sendPhoto('YOURCHATID',open(temp,'rb'), reply_markup=keyboard)
         os.remove(temp)
     elif content_type == 'document':
         type=str(msg['document']['file_name']).split(".")
@@ -48,13 +48,13 @@ def on_chat_message(msg):
                 bot.sendDocument(user_id,open(temp,'rb'),caption=msg['caption'])
                 user_id = None
             except NameError:
-                bot.sendDocument('243271749',open(temp,'rb'),caption=msg['caption'], reply_markup=keyboard)
+                bot.sendDocument('YOURCHATID',open(temp,'rb'),caption=msg['caption'], reply_markup=keyboard)
         else:
             try:
                 bot.sendDocument(user_id,open(temp,'rb'))
                 user_id = None
             except NameError:
-                bot.sendDocument('243271749',open(temp,'rb'), reply_markup=keyboard)
+                bot.sendDocument('YOURCHATID',open(temp,'rb'), reply_markup=keyboard)
         os.remove(temp)
     elif content_type == 'video':
         temp=f"Doc{(str(time.time()).replace('.', ''))}.mp4"
@@ -64,13 +64,13 @@ def on_chat_message(msg):
                 bot.sendVideo(user_id,open(temp,'rb'),caption=msg['caption'])
                 user_id = None
             except NameError:
-                bot.sendVideo('243271749',open(temp,'rb'),caption=msg['caption'], reply_markup=keyboard)
+                bot.sendVideo('YOURCHATID',open(temp,'rb'),caption=msg['caption'], reply_markup=keyboard)
         else:
             try:
                 bot.sendVideo(user_id,open(temp,'rb'))
                 user_id = None
             except NameError:
-                bot.sendVideo('243271749',open(temp,'rb'), reply_markup=keyboard)
+                bot.sendVideo('YOURCHATID',open(temp,'rb'), reply_markup=keyboard)
         os.remove(temp)
     elif content_type == 'voice':
         temp=f"Doc{(str(time.time()).replace('.', ''))}.mp3"
@@ -78,7 +78,7 @@ def on_chat_message(msg):
         try:
             bot.sendVoice(user_id,open(temp,'rb'))
         except NameError:
-            bot.sendVoice('243271749',open(temp,'rb'), reply_markup=keyboard)
+            bot.sendVoice('YOURCHATID',open(temp,'rb'), reply_markup=keyboard)
         os.remove(temp)
     else:
         bot.sendMessage(chat_id,"پشتیبانی نمیشود")
@@ -98,7 +98,7 @@ def on_callback_query(msg):
             bot.sendMessage(from_id,'باتشکر از ارسال پیام برای دکترببعی\n پیام شما مشاهده شد.')
 
 
-bot = telepot.Bot('1089435637:AAHEVD9VFd9O4K8zsDEJzSbviS7_uNX3GH4')
+bot = telepot.Bot('YOURTOKEN')
 MessageLoop(bot, {'chat': on_chat_message,'callback_query': on_callback_query}).run_as_thread()
 
 while 1:
