@@ -95,7 +95,7 @@ def on_callback_query(msg):
             bot.sendMessage(from_id,text="پیام خود را ارسال کنید")
             user_id=data[1]
         else:
-            bot.sendMessage(from_id,'باتشکر از ارسال پیام برای دکترببعی\n پیام شما مشاهده شد.')
+            bot.sendMessage(data[1],'باتشکر از ارسال پیام برای دکترببعی\n پیام شما مشاهده شد.')
 
 
 bot = telepot.Bot('YOURTOKEN')
