@@ -1,4 +1,3 @@
-import os
 import time
 import telepot
 from telepot.loop import MessageLoop
@@ -15,71 +14,57 @@ def on_chat_message(msg):
     ])
     if content_type == 'text':
         if msg['text'] == '/start':
-            bot.sendMessage(chat_id,"خوش اومدی این ربات برای دکتر ببعی هست، هرپیامی که میخوای برای دکتر بفرست اون بدون اینکه بدونه میبینه و جوابت رو میده.",reply_to_message_id=msg['message_id'])
+            bot.sendMessage(chat_id,"خوش اومدی این ربات برای دکتر ببعی هست، هرپیامی که میخوای برای سروش بفرست اون بدون اینکه بدونه میبینه و جوابت رو میده.",reply_to_message_id=msg['message_id'])
         else:
             try:
                 bot.sendMessage(user_id,msg['text'])
                 user_id=None
             except NameError:
                 bot.sendMessage('YOURCHATID',msg['text'],reply_markup=keyboard)
-
     elif content_type == 'photo':
-        temp=f"Img{(str(time.time()).replace('.', ''))}.png"
-        bot.download_file(msg['photo'][-1]['file_id'],temp)
         if 'caption' in msg:
             try:
-                bot.sendPhoto(user_id,open(temp,'rb'),caption=msg['caption'])
+                bot.sendPhoto(user_id,msg['photo'][-1]['file_id'],caption=msg['caption'])
                 user_id = None
             except NameError:
-                bot.sendPhoto('YOURCHATID',open(temp,'rb'),caption=msg['caption'], reply_markup=keyboard)
+                bot.sendPhoto('YOURCHATID',msg['photo'][-1]['file_id'],caption=msg['caption'], reply_markup=keyboard)
         else:
             try:
-                bot.sendPhoto(user_id,open(temp,'rb'))
+                bot.sendPhoto(user_id,msg['photo'][-1]['file_id'])
                 user_id = None
             except NameError:
-                bot.sendPhoto('YOURCHATID',open(temp,'rb'), reply_markup=keyboard)
-        os.remove(temp)
+                bot.sendPhoto('YOURCHATID',msg['photo'][-1]['file_id'], reply_markup=keyboard)
     elif content_type == 'document':
-        type=str(msg['document']['file_name']).split(".")
-        temp=f"Doc{(str(time.time()).replace('.', ''))}."+type[len(type)-1]
-        bot.download_file(msg['document']['thumb']['file_id'], temp)
         if 'caption' in msg:
             try:
-                bot.sendDocument(user_id,open(temp,'rb'),caption=msg['caption'])
+                bot.sendDocument(user_id,msg['document']['thumb']['file_id'],caption=msg['caption'])
                 user_id = None
             except NameError:
-                bot.sendDocument('YOURCHATID',open(temp,'rb'),caption=msg['caption'], reply_markup=keyboard)
+                bot.sendDocument('YOURCHATID',msg['document']['thumb']['file_id'],caption=msg['caption'], reply_markup=keyboard)
         else:
             try:
-                bot.sendDocument(user_id,open(temp,'rb'))
+                bot.sendDocument(user_id,msg['document']['thumb']['file_id'])
                 user_id = None
             except NameError:
-                bot.sendDocument('YOURCHATID',open(temp,'rb'), reply_markup=keyboard)
-        os.remove(temp)
+                bot.sendDocument('YOURCHATID',msg['document']['thumb']['file_id'], reply_markup=keyboard)
     elif content_type == 'video':
-        temp=f"Doc{(str(time.time()).replace('.', ''))}.mp4"
-        bot.download_file(msg['video']['thumb']['file_id'], temp)
         if 'caption' in msg:
             try:
-                bot.sendVideo(user_id,open(temp,'rb'),caption=msg['caption'])
+                bot.sendVideo(user_id,msg['video']['thumb']['file_id'],caption=msg['caption'])
                 user_id = None
             except NameError:
-                bot.sendVideo('YOURCHATID',open(temp,'rb'),caption=msg['caption'], reply_markup=keyboard)
+                bot.sendVideo('YOURCHATID',msg['video']['thumb']['file_id'],caption=msg['caption'], reply_markup=keyboard)
         else:
             try:
-                bot.sendVideo(user_id,open(temp,'rb'))
+                bot.sendVideo(user_id,msg['video']['thumb']['file_id'])
                 user_id = None
             except NameError:
-                bot.sendVideo('YOURCHATID',open(temp,'rb'), reply_markup=keyboard)
-        os.remove(temp)
+                bot.sendVideo('YOURCHATID',msg['video']['thumb']['file_id'], reply_markup=keyboard)
     elif content_type == 'voice':
-        temp=f"Doc{(str(time.time()).replace('.', ''))}.mp3"
-        bot.download_file(msg['voice']['file_id'], temp)
         try:
-            bot.sendVoice(user_id,open(temp,'rb'))
+            bot.sendVoice(user_id,msg['voice']['file_id'])
         except NameError:
-            bot.sendVoice('YOURCHATID',open(temp,'rb'), reply_markup=keyboard)
-        os.remove(temp)
+            bot.sendVoice('YOURCHATID',msg['voice']['file_id'], reply_markup=keyboard)
     else:
         bot.sendMessage(chat_id,"پشتیبانی نمیشود")
     pass
@@ -95,8 +80,7 @@ def on_callback_query(msg):
             bot.sendMessage(from_id,text="پیام خود را ارسال کنید")
             user_id=data[1]
         else:
-            bot.sendMessage(data[1],'باتشکر از ارسال پیام برای دکترببعی\n پیام شما مشاهده شد.')
-
+            bot.sendMessage(data[1],'باتشکر از ارسال پیام برای دکتر ببعی\n پیام شما مشاهده شد.')
 
 bot = telepot.Bot('YOURTOKEN')
 MessageLoop(bot, {'chat': on_chat_message,'callback_query': on_callback_query}).run_as_thread()
