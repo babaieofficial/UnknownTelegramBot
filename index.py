@@ -14,7 +14,7 @@ def on_chat_message(msg):
     ])
     if content_type == 'text':
         if msg['text'] == '/start':
-            bot.sendMessage(chat_id,"خوش اومدی این ربات برای دکتر ببعی هست، هرپیامی که میخوای برای سروش بفرست اون بدون اینکه بدونه میبینه و جوابت رو میده.",reply_to_message_id=msg['message_id'])
+            bot.sendMessage(chat_id,"خوش اومدی این ربات برای دکتر ببعی هست، هرپیامی که میخوای برای ییعی بفرست اون بدون اینکه بدونه میبینه و جوابت رو میده.",reply_to_message_id=msg['message_id'])
         else:
             try:
                 bot.sendMessage(user_id,msg['text'])
